@@ -18,22 +18,14 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
-//    UserRepository userRepository;
-//
-//    @Autowired
-//    public UserServiceImpl(InMemoryUserRepository userRepository) {
-//        this.userRepository = userRepository;
-//    }
 
     @Override
     public UserAddDtoOut addUser(UserAddDtoIn userAddDtoIn) {
-//        return userRepository.addUser(userAddDtoIn);
         return RepositoryManager.getUserRepository().addUser(userAddDtoIn);
     }
 
     @Override
     public UserUpdateDtoOut updateUser(UserUpdateDtoIn userUpdateDtoIn) {
-//        return userRepository.updateUser(userUpdateDtoIn);
         return RepositoryManager.getUserRepository().updateUser(userUpdateDtoIn);
     }
 
@@ -42,19 +34,16 @@ public class UserServiceImpl implements UserService {
         if (id < 1) {
             throw new ValidationException("Ошибка валидации поля id у пользователя");
         }
-//        return userRepository.getUser(id);
         return RepositoryManager.getUserRepository().getUser(id);
     }
 
     @Override
     public List<UserGetDtoOut> getAllUsers() {
-//        return userRepository.getAllUsers();
         return RepositoryManager.getUserRepository().getAllUsers();
     }
 
     @Override
     public void deleteUser(Long id) {
-//        userRepository.deleteUser(id);
         RepositoryManager.getUserRepository().deleteUser(id);
     }
 }

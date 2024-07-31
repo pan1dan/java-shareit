@@ -69,14 +69,15 @@ public class InMemoryItemRepository implements ItemRepository {
     }
 
     public List<ItemGetDtoOut> searchItem(String text) {
-        if (text.isBlank() || text == null) {
+        if (text == null || text.isBlank()) {
             return new ArrayList<>();
         }
+        String lowerCaseText = text.toLowerCase();
         List<Item> items = itemStorage.values()
                 .stream()
                 .filter(item -> item.getAvailable()
-                                && (item.getName().contains((text.toLowerCase()))
-                                    || item.getDescription().toLowerCase().contains(text.toLowerCase())))
+                                && (item.getName().toLowerCase().contains((lowerCaseText))
+                                    || item.getDescription().toLowerCase().contains(lowerCaseText)))
                 .toList();
         return items.stream()
                     .map(ItemMapper::fromItemToItemGetDtoOut)
