@@ -17,7 +17,7 @@ public class ServiceManager {
 
     @Autowired
     public ServiceManager(UserServiceImpl userService, ItemServiceImpl itemService) {
-        this.itemService = itemService;
-        this.userService = userService;
+        ServiceManager.itemService = itemService;
+        ServiceManager.userService = userService;
     }
 }
