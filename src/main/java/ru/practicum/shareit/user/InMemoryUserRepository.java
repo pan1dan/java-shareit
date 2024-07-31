@@ -70,7 +70,7 @@ public class InMemoryUserRepository implements UserRepository {
     }
 
     private void isExistsUserWithThisEmail(String email, long id) {
-        for(User user : userStorage.values()) {
+        for (User user : userStorage.values()) {
             if (user.getEmail().equals(email) && user.getId() != id) {
                 throw new ConflictException("Пользователь с таким email уже существует");
             }
