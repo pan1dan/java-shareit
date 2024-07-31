@@ -27,8 +27,6 @@ import java.util.List;
 @Validated
 public class UserController {
     UserService userService;
-    RepositoryManager repositoryManager = new RepositoryManager(new InMemoryUserRepository(),
-                                                                new InMemoryItemRepository());
 
     @Autowired
     public UserController(UserServiceImpl userService) {

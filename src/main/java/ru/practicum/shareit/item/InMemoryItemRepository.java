@@ -34,7 +34,7 @@ public class InMemoryItemRepository implements ItemRepository {
         if (!itemStorage.containsKey(itemUpdateDtoIn.getId())) {
             throw new NotFoundException("Предмет с id = " + itemUpdateDtoIn.getId() + " не был найден");
         }
-        if (userId != itemStorage.get(itemUpdateDtoIn.getId()).getOwner()) {
+        if (!userId.equals(itemStorage.get(itemUpdateDtoIn.getId()).getOwner())) {
             throw new ForbiddenException("Только хозяин предмета может обновить информацию о нём");
         }
         Item item = itemStorage.get(itemUpdateDtoIn.getId());

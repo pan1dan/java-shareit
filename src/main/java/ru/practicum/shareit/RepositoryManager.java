@@ -8,12 +8,7 @@ import ru.practicum.shareit.user.InMemoryUserRepository;
 @Component
 public class RepositoryManager {
     @Getter
-    private static InMemoryItemRepository itemRepository;
+    private static InMemoryItemRepository itemRepository = new InMemoryItemRepository();
     @Getter
-    private static InMemoryUserRepository userRepository;
-
-    public RepositoryManager(InMemoryUserRepository userRepository, InMemoryItemRepository itemRepository) {
-        this.itemRepository = itemRepository;
-        this.userRepository = userRepository;
-    }
+    private static InMemoryUserRepository userRepository = new InMemoryUserRepository();
 }

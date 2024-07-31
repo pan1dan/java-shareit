@@ -26,8 +26,6 @@ import java.util.List;
 @Validated
 public class ItemController {
     ItemService itemService;
-    RepositoryManager repositoryManager = new RepositoryManager(new InMemoryUserRepository(),
-                                                                new InMemoryItemRepository());
 
     @Autowired
     public ItemController(ItemServiceImpl itemService) {
