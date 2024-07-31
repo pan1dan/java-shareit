@@ -1,7 +1,6 @@
 package ru.practicum.shareit;
 
 import lombok.Getter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.practicum.shareit.item.InMemoryItemRepository;
 import ru.practicum.shareit.user.InMemoryUserRepository;
