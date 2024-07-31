@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import ru.practicum.shareit.RepositoryManager;
+import ru.practicum.shareit.item.InMemoryItemRepository;
 import ru.practicum.shareit.user.dto.inEntity.UserAddDtoIn;
 import ru.practicum.shareit.user.dto.inEntity.UserUpdateDtoIn;
 import ru.practicum.shareit.user.dto.outEntity.UserAddDtoOut;
@@ -25,6 +27,8 @@ import java.util.List;
 @Validated
 public class UserController {
     UserService userService;
+    RepositoryManager repositoryManager = new RepositoryManager(new InMemoryUserRepository(),
+                                                                new InMemoryItemRepository());
 
     @Autowired
     public UserController(UserServiceImpl userService) {

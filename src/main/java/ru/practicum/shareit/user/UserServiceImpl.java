@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.practicum.shareit.RepositoryManager;
 import ru.practicum.shareit.exception.ValidationException;
 import ru.practicum.shareit.user.dto.inEntity.UserAddDtoIn;
 import ru.practicum.shareit.user.dto.inEntity.UserUpdateDtoIn;
@@ -19,21 +20,23 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
-    UserRepository userRepository;
-
-    @Autowired
-    public UserServiceImpl(InMemoryUserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+//    UserRepository userRepository;
+//
+//    @Autowired
+//    public UserServiceImpl(InMemoryUserRepository userRepository) {
+//        this.userRepository = userRepository;
+//    }
 
     @Override
     public UserAddDtoOut addUser(UserAddDtoIn userAddDtoIn) {
-        return userRepository.addUser(userAddDtoIn);
+//        return userRepository.addUser(userAddDtoIn);
+        return RepositoryManager.getUserRepository().addUser(userAddDtoIn);
     }
 
     @Override
     public UserUpdateDtoOut updateUser(UserUpdateDtoIn userUpdateDtoIn) {
-        return userRepository.updateUser(userUpdateDtoIn);
+//        return userRepository.updateUser(userUpdateDtoIn);
+        return RepositoryManager.getUserRepository().updateUser(userUpdateDtoIn);
     }
 
     @Override
@@ -41,16 +44,19 @@ public class UserServiceImpl implements UserService {
         if (id < 1) {
             throw new ValidationException("Ошибка валидации поля id у пользователя");
         }
-        return userRepository.getUser(id);
+//        return userRepository.getUser(id);
+        return RepositoryManager.getUserRepository().getUser(id);
     }
 
     @Override
     public List<UserGetDtoOut> getAllUsers() {
-        return userRepository.getAllUsers();
+//        return userRepository.getAllUsers();
+        return RepositoryManager.getUserRepository().getAllUsers();
     }
 
     @Override
     public void deleteUser(Long id) {
-        userRepository.deleteUser(id);
+//        userRepository.deleteUser(id);
+        RepositoryManager.getUserRepository().deleteUser(id);
     }
 }
