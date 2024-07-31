@@ -3,11 +3,11 @@ package ru.practicum.shareit.item;
 import org.springframework.stereotype.Repository;
 import ru.practicum.shareit.exception.ForbiddenException;
 import ru.practicum.shareit.exception.NotFoundException;
-import ru.practicum.shareit.item.dto.in.ItemAddDtoIn;
-import ru.practicum.shareit.item.dto.in.ItemUpdateDtoIn;
-import ru.practicum.shareit.item.dto.out.ItemAddDtoOut;
-import ru.practicum.shareit.item.dto.out.ItemGetDtoOut;
-import ru.practicum.shareit.item.dto.out.ItemUpdateDtoOut;
+import ru.practicum.shareit.item.dto.inEntity.ItemAddDtoIn;
+import ru.practicum.shareit.item.dto.inEntity.ItemUpdateDtoIn;
+import ru.practicum.shareit.item.dto.outEntity.ItemAddDtoOut;
+import ru.practicum.shareit.item.dto.outEntity.ItemGetDtoOut;
+import ru.practicum.shareit.item.dto.outEntity.ItemUpdateDtoOut;
 import ru.practicum.shareit.item.interfaces.ItemRepository;
 import ru.practicum.shareit.item.model.Item;
 

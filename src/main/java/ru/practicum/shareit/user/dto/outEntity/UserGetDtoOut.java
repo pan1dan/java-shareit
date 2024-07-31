@@ -1,4 +1,4 @@
-package ru.practicum.shareit.user.dto.out;
+package ru.practicum.shareit.user.dto.outEntity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserAddDtoOut {
-    long id;
+public class UserGetDtoOut {
+    Long id;
     String name;
     String email;
 }

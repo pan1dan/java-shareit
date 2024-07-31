@@ -1,4 +1,4 @@
-package ru.practicum.shareit.item.dto.out;
+package ru.practicum.shareit.item.dto.outEntity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,7 +8,7 @@ import ru.practicum.shareit.request.ItemRequest;
 @Data
 @Builder
 @AllArgsConstructor
-public class ItemGetDtoOut {
+public class ItemUpdateDtoOut {
     long id;
     String name;
     String description;

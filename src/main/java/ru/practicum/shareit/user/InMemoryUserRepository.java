@@ -3,11 +3,11 @@ package ru.practicum.shareit.user;
 import org.springframework.stereotype.Repository;
 import ru.practicum.shareit.exception.ConflictException;
 import ru.practicum.shareit.exception.NotFoundException;
-import ru.practicum.shareit.user.dto.in.UserAddDtoIn;
-import ru.practicum.shareit.user.dto.in.UserUpdateDtoIn;
-import ru.practicum.shareit.user.dto.out.UserAddDtoOut;
-import ru.practicum.shareit.user.dto.out.UserGetDtoOut;
-import ru.practicum.shareit.user.dto.out.UserUpdateDtoOut;
+import ru.practicum.shareit.user.dto.inEntity.UserAddDtoIn;
+import ru.practicum.shareit.user.dto.inEntity.UserUpdateDtoIn;
+import ru.practicum.shareit.user.dto.outEntity.UserAddDtoOut;
+import ru.practicum.shareit.user.dto.outEntity.UserGetDtoOut;
+import ru.practicum.shareit.user.dto.outEntity.UserUpdateDtoOut;
 import ru.practicum.shareit.user.interfaces.UserRepository;
 import ru.practicum.shareit.user.model.User;
 

@@ -6,11 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import ru.practicum.shareit.user.dto.in.UserAddDtoIn;
-import ru.practicum.shareit.user.dto.in.UserUpdateDtoIn;
-import ru.practicum.shareit.user.dto.out.UserAddDtoOut;
-import ru.practicum.shareit.user.dto.out.UserGetDtoOut;
-import ru.practicum.shareit.user.dto.out.UserUpdateDtoOut;
+import ru.practicum.shareit.user.dto.inEntity.UserAddDtoIn;
+import ru.practicum.shareit.user.dto.inEntity.UserUpdateDtoIn;
+import ru.practicum.shareit.user.dto.outEntity.UserAddDtoOut;
+import ru.practicum.shareit.user.dto.outEntity.UserGetDtoOut;
+import ru.practicum.shareit.user.dto.outEntity.UserUpdateDtoOut;
 import ru.practicum.shareit.user.interfaces.UserService;
 
 import java.util.List;

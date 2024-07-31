@@ -5,11 +5,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.practicum.shareit.ServiceManager;
-import ru.practicum.shareit.item.dto.in.ItemAddDtoIn;
-import ru.practicum.shareit.item.dto.in.ItemUpdateDtoIn;
-import ru.practicum.shareit.item.dto.out.ItemAddDtoOut;
-import ru.practicum.shareit.item.dto.out.ItemGetDtoOut;
-import ru.practicum.shareit.item.dto.out.ItemUpdateDtoOut;
+import ru.practicum.shareit.item.dto.inEntity.ItemAddDtoIn;
+import ru.practicum.shareit.item.dto.inEntity.ItemUpdateDtoIn;
+import ru.practicum.shareit.item.dto.outEntity.ItemAddDtoOut;
+import ru.practicum.shareit.item.dto.outEntity.ItemGetDtoOut;
+import ru.practicum.shareit.item.dto.outEntity.ItemUpdateDtoOut;
 import ru.practicum.shareit.item.interfaces.ItemRepository;
 import ru.practicum.shareit.item.interfaces.ItemService;
 

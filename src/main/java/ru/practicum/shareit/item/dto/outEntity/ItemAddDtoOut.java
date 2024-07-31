@@ -1,4 +1,4 @@
-package ru.practicum.shareit.item.dto.out;
+package ru.practicum.shareit.item.dto.outEntity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

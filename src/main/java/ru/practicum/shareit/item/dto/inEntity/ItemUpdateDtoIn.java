@@ -1,4 +1,4 @@
-package ru.practicum.shareit.item.dto.in;
+package ru.practicum.shareit.item.dto.inEntity;
 
 import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;

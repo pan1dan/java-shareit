@@ -1,8 +1,8 @@
 package ru.practicum.shareit.user;
 
-import ru.practicum.shareit.user.dto.out.UserAddDtoOut;
-import ru.practicum.shareit.user.dto.out.UserGetDtoOut;
-import ru.practicum.shareit.user.dto.out.UserUpdateDtoOut;
+import ru.practicum.shareit.user.dto.outEntity.UserAddDtoOut;
+import ru.practicum.shareit.user.dto.outEntity.UserGetDtoOut;
+import ru.practicum.shareit.user.dto.outEntity.UserUpdateDtoOut;
 import ru.practicum.shareit.user.model.User;
 
 public class UserMapper {

@@ -1,4 +1,4 @@
-package ru.practicum.shareit.user.dto.in;
+package ru.practicum.shareit.user.dto.inEntity;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

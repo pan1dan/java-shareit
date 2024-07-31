@@ -1,8 +1,8 @@
 package ru.practicum.shareit.item;
 
-import ru.practicum.shareit.item.dto.out.ItemAddDtoOut;
-import ru.practicum.shareit.item.dto.out.ItemGetDtoOut;
-import ru.practicum.shareit.item.dto.out.ItemUpdateDtoOut;
+import ru.practicum.shareit.item.dto.outEntity.ItemAddDtoOut;
+import ru.practicum.shareit.item.dto.outEntity.ItemGetDtoOut;
+import ru.practicum.shareit.item.dto.outEntity.ItemUpdateDtoOut;
 import ru.practicum.shareit.item.model.Item;
 
 public class ItemMapper {

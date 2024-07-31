@@ -1,6 +1,5 @@
-package ru.practicum.shareit.user.dto.in;
+package ru.practicum.shareit.user.dto.outEntity;
 
-import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,9 +9,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserUpdateDtoIn {
-    @Positive
-    Long id;
+public class UserAddDtoOut {
+    long id;
     String name;
     String email;
 }
