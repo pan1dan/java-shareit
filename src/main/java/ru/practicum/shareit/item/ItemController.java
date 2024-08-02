@@ -15,9 +15,8 @@ import ru.practicum.shareit.item.interfaces.ItemService;
 
 import java.util.List;
 
-/**
- * TODO Sprint add-controllers.
- */
+import static ru.practicum.shareit.Utility.X_SHARER_USER_ID;
+
 @RestController
 @RequestMapping("/items")
 @Slf4j
@@ -32,7 +31,7 @@ public class ItemController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.OK)
-    public ItemAddDtoOut addItem(@RequestHeader("X-Sharer-User-Id") long userId,
+    public ItemAddDtoOut addItem(@RequestHeader(X_SHARER_USER_ID) long userId,
                                  @RequestBody @Valid ItemAddDtoIn itemAddDtoIn) {
         log.info("POST /items: {}, {}", userId, itemAddDtoIn);
         ItemAddDtoOut itemAddDtoOut = itemService.addItem(userId, itemAddDtoIn);
@@ -42,7 +41,7 @@ public class ItemController {
 
     @PatchMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ItemUpdateDtoOut updateItem(@RequestHeader("X-Sharer-User-Id") long userId,
+    public ItemUpdateDtoOut updateItem(@RequestHeader(X_SHARER_USER_ID) long userId,
                                        @RequestBody @Valid ItemUpdateDtoIn itemUpdateDtoIn,
                                        @PathVariable("id") Long itemId) {
         log.info("PATCH /items/{}: {}, {}",itemId, userId, itemUpdateDtoIn);
@@ -54,7 +53,7 @@ public class ItemController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ItemGetDtoOut getItem(@RequestHeader("X-Sharer-User-Id") long userId,
+    public ItemGetDtoOut getItem(@RequestHeader(X_SHARER_USER_ID) long userId,
                                  @PathVariable("id") Long itemId) {
         log.info("GET /items/{}: {}", itemId, userId);
         ItemGetDtoOut itemGetDtoOut = itemService.getItem(userId, itemId);
@@ -64,7 +63,7 @@ public class ItemController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<ItemGetDtoOut> getUserItems(@RequestHeader("X-Sharer-User-Id") long userId) {
+    public List<ItemGetDtoOut> getUserItems(@RequestHeader(X_SHARER_USER_ID) long userId) {
         log.info("GET /items: {}", userId);
         List<ItemGetDtoOut> items = itemService.getUserItems(userId);
         log.info("GET /items возвращает значение: {}", items);
