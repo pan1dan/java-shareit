@@ -3,14 +3,15 @@ package ru.practicum.shareit.item;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import ru.practicum.shareit.item.dto.inEntity.CommentAddDtoIn;
 import ru.practicum.shareit.item.dto.inEntity.ItemAddDtoIn;
 import ru.practicum.shareit.item.dto.inEntity.ItemUpdateDtoIn;
-import ru.practicum.shareit.item.dto.outEntity.ItemAddDtoOut;
-import ru.practicum.shareit.item.dto.outEntity.ItemGetDtoOut;
-import ru.practicum.shareit.item.dto.outEntity.ItemUpdateDtoOut;
+import ru.practicum.shareit.item.dto.outEntity.*;
 import ru.practicum.shareit.item.interfaces.ItemService;
 
 import java.util.List;
@@ -54,7 +55,7 @@ public class ItemController {
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ItemGetDtoOut getItem(@RequestHeader(X_SHARER_USER_ID) long userId,
-                                 @PathVariable("id") Long itemId) {
+                                                       @PathVariable("id") Long itemId) {
         log.info("GET /items/{}: {}", itemId, userId);
         ItemGetDtoOut itemGetDtoOut = itemService.getItem(userId, itemId);
         log.info("GET /items/{} возвращает значение {}", itemId, itemGetDtoOut);
@@ -72,11 +73,24 @@ public class ItemController {
 
     @GetMapping("/search")
     @ResponseStatus(HttpStatus.OK)
-    public List<ItemGetDtoOut> searchItem(@RequestParam("text") String text) {
+    public List<ItemGetDtoOut> searchItem(@RequestParam("text") String text,
+                                          @RequestParam(value = "from", defaultValue = "0") final int from,
+                                          @RequestParam(value = "size", defaultValue = "10") final int size) {
         log.info("GET /items/search?text={}", text);
-        List<ItemGetDtoOut> items = itemService.searchItem(text);
+        final Pageable pageable = PageRequest.of(from / size, size);
+        List<ItemGetDtoOut> items = itemService.searchItem(text, pageable);
         log.info("GET /items/search?text={} возвращает значение: {}", text, items);
         return items;
     }
 
+    @PostMapping("/{itemId}/comment")
+    @ResponseStatus(HttpStatus.OK)
+    public CommentAddDtoOut addComment(@RequestHeader(X_SHARER_USER_ID) long userId,
+                                       @PathVariable("itemId") long itemId,
+                                       @RequestBody @Valid CommentAddDtoIn commentAddDtoIn) {
+        log.info("POST /items/{}/comment: {}, {}", itemId, userId, commentAddDtoIn);
+        CommentAddDtoOut commentAddDtoOut = itemService.addComment(userId, itemId, commentAddDtoIn);
+        log.info("POST /items/{}/comment возвращает значение: {}", itemId, commentAddDtoOut);
+        return commentAddDtoOut;
+    }
 }

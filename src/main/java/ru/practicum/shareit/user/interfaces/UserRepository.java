@@ -1,22 +1,7 @@
 package ru.practicum.shareit.user.interfaces;
 
-import ru.practicum.shareit.user.dto.inEntity.UserAddDtoIn;
-import ru.practicum.shareit.user.dto.inEntity.UserUpdateDtoIn;
-import ru.practicum.shareit.user.dto.outEntity.UserAddDtoOut;
-import ru.practicum.shareit.user.dto.outEntity.UserGetDtoOut;
-import ru.practicum.shareit.user.dto.outEntity.UserUpdateDtoOut;
+import org.springframework.data.jpa.repository.JpaRepository;
+import ru.practicum.shareit.user.model.User;
 
-import java.util.List;
-
-public interface UserRepository {
-
-    UserAddDtoOut addUser(UserAddDtoIn userAddDtoIn);
-
-    UserUpdateDtoOut updateUser(UserUpdateDtoIn userUpdateDtoIn);
-
-    UserGetDtoOut getUser(long id);
-
-    List<UserGetDtoOut> getAllUsers();
-
-    void deleteUser(Long id);
+public interface UserRepository extends JpaRepository<User, Long> {
 }

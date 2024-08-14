@@ -3,7 +3,8 @@ package ru.practicum.shareit.item.dto.outEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import ru.practicum.shareit.request.ItemRequest;
+import ru.practicum.shareit.request.model.ItemRequest;
+import ru.practicum.shareit.user.dto.outEntity.UserGetDtoOut;
 
 @Data
 @Builder
@@ -13,6 +14,6 @@ public class ItemUpdateDtoOut {
     String name;
     String description;
     Boolean available;
-    long owner;
+    UserGetDtoOut owner;
     ItemRequest request;
 }
