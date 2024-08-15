@@ -13,7 +13,7 @@ public class ItemAddDtoOut {
     long id;
     String name;
     String description;
-    Boolean available;
+    boolean available;
     UserGetDtoOut owner;
     ItemRequest request;
 }

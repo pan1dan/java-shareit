@@ -27,7 +27,6 @@ public class UserServiceImpl implements UserService {
     public UserAddDtoOut addUser(UserAddDtoIn userAddDtoIn) {
         User newUser = userRepository.save(UserMapper.fromUserAddDtoInToUser(userAddDtoIn));
         return UserMapper.fromUserToUserAddDtoOut(newUser);
-        //return RepositoryManager.getUserRepository().addUser(userAddDtoIn);
     }
 
     @Override
@@ -53,7 +52,6 @@ public class UserServiceImpl implements UserService {
         return UserMapper.fromUserToUserGetDtoOut(
                 userRepository.findById(id).orElseThrow(
                         () -> new NotFoundException("Пользователь с id = " + id + " не найден")));
-        //return RepositoryManager.getUserRepository().getUser(id);
     }
 
     @Override
@@ -62,13 +60,11 @@ public class UserServiceImpl implements UserService {
                              .stream()
                              .map(UserMapper::fromUserToUserGetDtoOut)
                              .toList();
-        //return RepositoryManager.getUserRepository().getAllUsers();
     }
 
     @Override
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
-        //RepositoryManager.getUserRepository().deleteUser(id);
     }
 
 }

@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BookingAddDtoOut {
-    Long id;
+    long id;
     LocalDateTime start;
     LocalDateTime end;
     ItemGetDtoOut item;

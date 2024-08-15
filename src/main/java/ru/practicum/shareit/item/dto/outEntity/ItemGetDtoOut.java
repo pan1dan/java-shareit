@@ -16,7 +16,7 @@ public class ItemGetDtoOut {
     long id;
     String name;
     String description;
-    Boolean available;
+    boolean available;
     UserGetDtoOut owner;
     ItemRequest request;
     BookingGetDtoOut lastBooking;

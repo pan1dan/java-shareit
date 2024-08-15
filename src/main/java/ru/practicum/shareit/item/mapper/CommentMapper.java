@@ -31,7 +31,6 @@ public class CommentMapper {
                 .text(comment.getText())
                 .created(comment.getCreated())
                 .authorName(comment.getAuthor().getName())
-//                .item(ItemMapper.fromItemToItemGetDtoOut(comment.getItem()))
                 .build();
     }
 }

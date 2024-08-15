@@ -45,8 +45,6 @@ public class ItemMapper {
                 .available(item.getAvailable())
                 .owner(UserMapper.fromUserToUserGetDtoOut(item.getOwner()))
                 .request(item.getRequest())
-//                .lastBooking(BookingMapper.fromBookingToBookingGetDtoOut(lastBooking))
-//                .nextBooking(BookingMapper.fromBookingToBookingGetDtoOut(nextBooking))
                 .comments(commentGetDtoOutList)
                 .build();
         lastBooking.ifPresent(booking ->

@@ -1,8 +1,8 @@
 package ru.practicum.shareit.user;
 
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -19,13 +19,9 @@ import java.util.List;
 @RequestMapping(path = "/users")
 @Slf4j
 @Validated
+@RequiredArgsConstructor
 public class UserController {
-    UserService userService;
-
-    @Autowired
-    public UserController(UserServiceImpl userService) {
-        this.userService = userService;
-    }
+    private final UserService userService;
 
     @PostMapping
     @ResponseStatus(HttpStatus.OK)

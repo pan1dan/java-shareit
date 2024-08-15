@@ -1,10 +1,8 @@
 package ru.practicum.shareit.item;
 
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -22,13 +20,9 @@ import static ru.practicum.shareit.Utility.X_SHARER_USER_ID;
 @RequestMapping("/items")
 @Slf4j
 @Validated
+@RequiredArgsConstructor
 public class ItemController {
-    ItemService itemService;
-
-    @Autowired
-    public ItemController(ItemServiceImpl itemService) {
-        this.itemService = itemService;
-    }
+    private final ItemService itemService;
 
     @PostMapping
     @ResponseStatus(HttpStatus.OK)
@@ -73,12 +67,9 @@ public class ItemController {
 
     @GetMapping("/search")
     @ResponseStatus(HttpStatus.OK)
-    public List<ItemGetDtoOut> searchItem(@RequestParam("text") String text,
-                                          @RequestParam(value = "from", defaultValue = "0") final int from,
-                                          @RequestParam(value = "size", defaultValue = "10") final int size) {
+    public List<ItemGetDtoOut> searchItem(@RequestParam("text") String text) {
         log.info("GET /items/search?text={}", text);
-        final Pageable pageable = PageRequest.of(from / size, size);
-        List<ItemGetDtoOut> items = itemService.searchItem(text, pageable);
+        List<ItemGetDtoOut> items = itemService.searchItem(text);
         log.info("GET /items/search?text={} возвращает значение: {}", text, items);
         return items;
     }

@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CommentAddDtoOut {
-    Long id;
+    long id;
     String text;
     ItemGetDtoOut item;
     String authorName;

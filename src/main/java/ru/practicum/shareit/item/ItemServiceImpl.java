@@ -2,7 +2,6 @@ package ru.practicum.shareit.item;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import ru.practicum.shareit.booking.interfaces.BookingRepository;
 import ru.practicum.shareit.booking.model.Booking;
@@ -43,8 +42,6 @@ public class ItemServiceImpl implements ItemService {
                         " не найден"));
         Item newItem = itemRepository.save(ItemMapper.fromItemAddDtoInToItem(itemAddDtoIn, user));
         return ItemMapper.fromItemToItemAddDtoOut(newItem);
-//        RepositoryManager.getUserRepository().getUser(userId);
-//        return RepositoryManager.getItemRepository().addItem(userId, itemAddDtoIn);
     }
 
     @Override
@@ -71,7 +68,7 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public ItemGetDtoOut getItem(Long userId, Long itemId) {
-        Item item = itemRepository.findById(itemId).orElseThrow(() -> new NotFoundException("Предмет с id = " + itemId +
+        itemRepository.findById(itemId).orElseThrow(() -> new NotFoundException("Предмет с id = " + itemId +
                                                                                                     " не был найден"));
         List<Booking> bookings = bookingRepository.findAllByItemIdAndBookingStatus(itemId, BookingStatus.APPROVED);
         Optional<Booking> lastBooking = bookings.stream()
@@ -84,7 +81,6 @@ public class ItemServiceImpl implements ItemService {
                                                                       .stream()
                                                                       .map(CommentMapper::fromCommentToCommentGetDtoOut)
                                                                       .toList();
-
         return ItemMapper.fromItemToItemGetDtoOut(
                 lastBooking,
                 nextBooking,
@@ -93,38 +89,41 @@ public class ItemServiceImpl implements ItemService {
                                .orElseThrow(() -> new NotFoundException(
                                                                         "Предмет с id = " + itemId +
                                                                         " не был найден")));
-//        return RepositoryManager.getItemRepository().getItem(userId, itemId);
     }
 
     @Override
     public List<ItemGetDtoOut> getUserItems(Long userId) {
-//        List<Item> items = itemRepository.findAllByOwnerId(userId);
-//        List<Booking> bookings = bookingRepository.findAllByBookingItemOwnerId(userId);
-//        List<Comment> comments = commentRepository.findAllByItemOwnerId(userId);
-//
-//        return items.stream().map(ItemMapper::fromItemToItemGetDtoOut).toList();
-
         List<Item> items = itemRepository.findAllByOwnerId(userId);
-        List<ItemGetDtoOut> allUserItems = items.stream().map(item -> {
-            return getItem(userId, item.getId());
-        }).toList();
-        return allUserItems;
+        List<Booking> bookings;
+        List<ItemGetDtoOut> itemsList = new ArrayList<>();
+        for (Item item : items) {
+            bookings = bookingRepository.findAllByItemIdAndBookingStatus(item.getId(), BookingStatus.APPROVED);
+            Optional<Booking> lastBooking = bookings.stream()
+                    .filter(booking -> booking.getEnd().isAfter(LocalDateTime.now()))
+                    .max(Comparator.comparing(Booking::getEnd));
+            Optional<Booking> nextBooking = bookings.stream()
+                    .filter(booking -> booking.getStart().isAfter(LocalDateTime.now()))
+                    .min(Comparator.comparing(Booking::getStart));
+            List<CommentGetDtoOut> commentGetDtoOutList = commentRepository.findAllByItemId(item.getId())
+                    .stream()
+                    .map(CommentMapper::fromCommentToCommentGetDtoOut)
+                    .toList();
+            itemsList.add(ItemMapper.fromItemToItemGetDtoOut(
+                    lastBooking,
+                    nextBooking,
+                    commentGetDtoOutList,
+                    item));
 
-//        return itemRepository.findAll()
-//                             .stream()
-//                             .map(ItemMapper::fromItemToItemGetDtoOut)
-//                             .toList();
-        //return RepositoryManager.getItemRepository().getUserItems(userId);
+        }
+        return itemsList;
     }
 
     @Override
-    public List<ItemGetDtoOut> searchItem(String text, Pageable pageable) {
+    public List<ItemGetDtoOut> searchItem(String text) {
         if (text == null || text.isBlank()) {
             return new ArrayList<>();
         }
-        return itemRepository.search(text, pageable).stream().map(ItemMapper::fromItemToItemGetDtoOut).toList();
-
-        //return RepositoryManager.getItemRepository().searchItem(text);
+        return itemRepository.search(text).stream().map(ItemMapper::fromItemToItemGetDtoOut).toList();
     }
 
     @Override
@@ -144,9 +143,6 @@ public class ItemServiceImpl implements ItemService {
             throw new BadRequestException("Не нашлось бронирований, чтобы оставить комментарий");
         }
         Comment comment = CommentMapper.fromDataToComment(commentAddDtoIn.getText(), user, item);
-
-
-        //log.info("comment = {}", comment);
         comment.setCreated(LocalDateTime.now());
         return CommentMapper.fromCommentToCommentAddDtoOut(commentRepository.save(comment));
     }
