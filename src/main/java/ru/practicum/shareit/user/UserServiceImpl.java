@@ -3,14 +3,17 @@ package ru.practicum.shareit.user;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import ru.practicum.shareit.RepositoryManager;
+import ru.practicum.shareit.exception.NotFoundException;
 import ru.practicum.shareit.exception.ValidationException;
 import ru.practicum.shareit.user.dto.inEntity.UserAddDtoIn;
 import ru.practicum.shareit.user.dto.inEntity.UserUpdateDtoIn;
 import ru.practicum.shareit.user.dto.outEntity.UserAddDtoOut;
 import ru.practicum.shareit.user.dto.outEntity.UserGetDtoOut;
 import ru.practicum.shareit.user.dto.outEntity.UserUpdateDtoOut;
+import ru.practicum.shareit.user.interfaces.UserRepository;
 import ru.practicum.shareit.user.interfaces.UserService;
+import ru.practicum.shareit.user.mapper.UserMapper;
+import ru.practicum.shareit.user.model.User;
 
 import java.util.List;
 
@@ -18,15 +21,27 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
+    private final UserRepository userRepository;
 
     @Override
     public UserAddDtoOut addUser(UserAddDtoIn userAddDtoIn) {
-        return RepositoryManager.getUserRepository().addUser(userAddDtoIn);
+        User newUser = userRepository.save(UserMapper.fromUserAddDtoInToUser(userAddDtoIn));
+        return UserMapper.fromUserToUserAddDtoOut(newUser);
     }
 
     @Override
     public UserUpdateDtoOut updateUser(UserUpdateDtoIn userUpdateDtoIn) {
-        return RepositoryManager.getUserRepository().updateUser(userUpdateDtoIn);
+        User user = userRepository
+                    .findById(userUpdateDtoIn.getId())
+                    .orElseThrow(() -> new NotFoundException("Пользователь с id = " + userUpdateDtoIn.getId()
+                                                                                                       + " не найден"));
+        if (userUpdateDtoIn.getEmail() != null && !userUpdateDtoIn.getEmail().isBlank()) {
+            user.setEmail(userUpdateDtoIn.getEmail());
+        }
+        if (userUpdateDtoIn.getName() != null && !userUpdateDtoIn.getName().isBlank()) {
+            user.setName(userUpdateDtoIn.getName());
+        }
+        return UserMapper.fromUserToUserUpdateDtoOut(userRepository.save(user));
     }
 
     @Override
@@ -34,16 +49,22 @@ public class UserServiceImpl implements UserService {
         if (id < 1) {
             throw new ValidationException("Ошибка валидации поля id у пользователя");
         }
-        return RepositoryManager.getUserRepository().getUser(id);
+        return UserMapper.fromUserToUserGetDtoOut(
+                userRepository.findById(id).orElseThrow(
+                        () -> new NotFoundException("Пользователь с id = " + id + " не найден")));
     }
 
     @Override
     public List<UserGetDtoOut> getAllUsers() {
-        return RepositoryManager.getUserRepository().getAllUsers();
+        return userRepository.findAll()
+                             .stream()
+                             .map(UserMapper::fromUserToUserGetDtoOut)
+                             .toList();
     }
 
     @Override
     public void deleteUser(Long id) {
-        RepositoryManager.getUserRepository().deleteUser(id);
+        userRepository.deleteById(id);
     }
+
 }

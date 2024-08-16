@@ -1,5 +1,6 @@
-package ru.practicum.shareit.user;
+package ru.practicum.shareit.user.mapper;
 
+import ru.practicum.shareit.user.dto.inEntity.UserAddDtoIn;
 import ru.practicum.shareit.user.dto.outEntity.UserAddDtoOut;
 import ru.practicum.shareit.user.dto.outEntity.UserGetDtoOut;
 import ru.practicum.shareit.user.dto.outEntity.UserUpdateDtoOut;
@@ -27,6 +28,13 @@ public class UserMapper {
                 .id(user.getId())
                 .email(user.getEmail())
                 .name(user.getName())
+                .build();
+    }
+
+    public static User fromUserAddDtoInToUser(UserAddDtoIn userAddDtoIn) {
+        return User.builder()
+                .name(userAddDtoIn.getName())
+                .email(userAddDtoIn.getEmail())
                 .build();
     }
 }

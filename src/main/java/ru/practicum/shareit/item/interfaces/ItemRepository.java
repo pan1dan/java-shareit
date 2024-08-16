@@ -1,22 +1,18 @@
 package ru.practicum.shareit.item.interfaces;
 
-import ru.practicum.shareit.item.dto.inEntity.ItemAddDtoIn;
-import ru.practicum.shareit.item.dto.inEntity.ItemUpdateDtoIn;
-import ru.practicum.shareit.item.dto.outEntity.ItemAddDtoOut;
-import ru.practicum.shareit.item.dto.outEntity.ItemGetDtoOut;
-import ru.practicum.shareit.item.dto.outEntity.ItemUpdateDtoOut;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import ru.practicum.shareit.item.model.Item;
 
 import java.util.List;
 
-public interface ItemRepository {
+public interface ItemRepository extends JpaRepository<Item, Long> {
+    @Query("select i " +
+            "from Item as i " +
+            "where i.available = true and " +
+            "(lower(i.name) like lower(concat('%', ?1, '%')) or " +
+            "lower(i.description) like lower(concat('%', ?1, '%')))")
+    List<Item> search(final String text);
 
-    ItemAddDtoOut addItem(Long userId, ItemAddDtoIn itemAddDtoIn);
-
-    ItemUpdateDtoOut updateItem(Long userId, ItemUpdateDtoIn itemUpdateDtoIn);
-
-    ItemGetDtoOut getItem(Long userId, Long itemId);
-
-    List<ItemGetDtoOut> getUserItems(Long userId);
-
-    List<ItemGetDtoOut> searchItem(String text);
+    List<Item> findAllByOwnerId(Long ownerId);
 }

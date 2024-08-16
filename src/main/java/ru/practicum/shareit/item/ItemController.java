@@ -1,16 +1,15 @@
 package ru.practicum.shareit.item;
 
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import ru.practicum.shareit.item.dto.inEntity.CommentAddDtoIn;
 import ru.practicum.shareit.item.dto.inEntity.ItemAddDtoIn;
 import ru.practicum.shareit.item.dto.inEntity.ItemUpdateDtoIn;
-import ru.practicum.shareit.item.dto.outEntity.ItemAddDtoOut;
-import ru.practicum.shareit.item.dto.outEntity.ItemGetDtoOut;
-import ru.practicum.shareit.item.dto.outEntity.ItemUpdateDtoOut;
+import ru.practicum.shareit.item.dto.outEntity.*;
 import ru.practicum.shareit.item.interfaces.ItemService;
 
 import java.util.List;
@@ -21,13 +20,9 @@ import static ru.practicum.shareit.Utility.X_SHARER_USER_ID;
 @RequestMapping("/items")
 @Slf4j
 @Validated
+@RequiredArgsConstructor
 public class ItemController {
-    ItemService itemService;
-
-    @Autowired
-    public ItemController(ItemServiceImpl itemService) {
-        this.itemService = itemService;
-    }
+    private final ItemService itemService;
 
     @PostMapping
     @ResponseStatus(HttpStatus.OK)
@@ -54,7 +49,7 @@ public class ItemController {
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ItemGetDtoOut getItem(@RequestHeader(X_SHARER_USER_ID) long userId,
-                                 @PathVariable("id") Long itemId) {
+                                                       @PathVariable("id") Long itemId) {
         log.info("GET /items/{}: {}", itemId, userId);
         ItemGetDtoOut itemGetDtoOut = itemService.getItem(userId, itemId);
         log.info("GET /items/{} возвращает значение {}", itemId, itemGetDtoOut);
@@ -79,4 +74,14 @@ public class ItemController {
         return items;
     }
 
+    @PostMapping("/{itemId}/comment")
+    @ResponseStatus(HttpStatus.OK)
+    public CommentAddDtoOut addComment(@RequestHeader(X_SHARER_USER_ID) long userId,
+                                       @PathVariable("itemId") long itemId,
+                                       @RequestBody @Valid CommentAddDtoIn commentAddDtoIn) {
+        log.info("POST /items/{}/comment: {}, {}", itemId, userId, commentAddDtoIn);
+        CommentAddDtoOut commentAddDtoOut = itemService.addComment(userId, itemId, commentAddDtoIn);
+        log.info("POST /items/{}/comment возвращает значение: {}", itemId, commentAddDtoOut);
+        return commentAddDtoOut;
+    }
 }
