@@ -12,4 +12,5 @@ public class ItemUpdateDtoIn {
     String name;
     String description;
     Boolean available;
+    Long requestId;
 }
