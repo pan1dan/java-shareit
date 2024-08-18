@@ -18,4 +18,5 @@ public class ItemAddDtoIn {
     String description;
     @NotNull(message = "Поле available не может быть null")
     Boolean available;
+    Long requestId;
 }

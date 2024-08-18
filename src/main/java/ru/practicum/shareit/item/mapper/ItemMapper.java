@@ -13,14 +13,17 @@ import java.util.Optional;
 
 public class ItemMapper {
     public static ItemAddDtoOut fromItemToItemAddDtoOut(Item item) {
-        return ItemAddDtoOut.builder()
+        ItemAddDtoOut itemAddDtoOut = ItemAddDtoOut.builder()
                 .id(item.getId())
                 .name(item.getName())
                 .description(item.getDescription())
                 .available(item.getAvailable())
                 .owner(UserMapper.fromUserToUserGetDtoOut(item.getOwner()))
-                .request(item.getRequest())
                 .build();
+        if (item.getRequest() != null) {
+            itemAddDtoOut.setRequestId(item.getRequest().getId());
+        }
+        return itemAddDtoOut;
     }
 
     public static ItemUpdateDtoOut fromItemToItemUpdateDtoOut(Item item) {
@@ -72,5 +75,14 @@ public class ItemMapper {
                 .available(itemAddDtoIn.getAvailable())
                 .owner(owner)
                 .build();
+    }
+
+    public static ItemForItemRequestGetDtoOut fromItemToItemForItemRequestGetDtoOut(Item item) {
+        return ItemForItemRequestGetDtoOut.builder()
+                                          .ownerId(item.getOwner().getId())
+                                          .id(item.getId())
+                                          .name(item.getName())
+                                          .build();
+
     }
 }

@@ -20,6 +20,7 @@ import ru.practicum.shareit.item.mapper.CommentMapper;
 import ru.practicum.shareit.item.mapper.ItemMapper;
 import ru.practicum.shareit.item.model.Comment;
 import ru.practicum.shareit.item.model.Item;
+import ru.practicum.shareit.request.interfaces.ItemRequestRepository;
 import ru.practicum.shareit.user.interfaces.UserRepository;
 import ru.practicum.shareit.user.model.User;
 
@@ -34,14 +35,19 @@ public class ItemServiceImpl implements ItemService {
     private final BookingRepository bookingRepository;
     private final UserRepository userRepository;
     private final CommentRepository commentRepository;
+    private final ItemRequestRepository itemRequestRepository;
 
     @Override
     public ItemAddDtoOut addItem(Long userId, ItemAddDtoIn itemAddDtoIn) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException("Пользователь с id = " + userId +
                         " не найден"));
-        Item newItem = itemRepository.save(ItemMapper.fromItemAddDtoInToItem(itemAddDtoIn, user));
-        return ItemMapper.fromItemToItemAddDtoOut(newItem);
+        Item newItem = ItemMapper.fromItemAddDtoInToItem(itemAddDtoIn, user);
+        if (itemAddDtoIn.getRequestId() != null) {
+            newItem.setRequest(itemRequestRepository.findById(itemAddDtoIn.getRequestId()).orElseThrow(() ->
+                            new NotFoundException("Реквест с id = " + itemAddDtoIn.getRequestId() + " не найден")));
+        }
+        return ItemMapper.fromItemToItemAddDtoOut(itemRepository.save(newItem));
     }
 
     @Override
@@ -62,6 +68,10 @@ public class ItemServiceImpl implements ItemService {
         }
         if (itemUpdateDtoIn.getAvailable() != null) {
             item.setAvailable(itemUpdateDtoIn.getAvailable());
+        }
+        if (itemUpdateDtoIn.getRequestId() != null) {
+            item.setRequest(itemRequestRepository.findById(itemUpdateDtoIn.getRequestId()).orElseThrow(() ->
+                    new NotFoundException("Реквест с id = " + itemUpdateDtoIn.getRequestId() + " не найден")));
         }
         return ItemMapper.fromItemToItemUpdateDtoOut(itemRepository.save(item));
     }

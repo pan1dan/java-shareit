@@ -15,5 +15,5 @@ public class ItemAddDtoOut {
     String description;
     boolean available;
     UserGetDtoOut owner;
-    ItemRequest request;
+    long requestId;
 }
