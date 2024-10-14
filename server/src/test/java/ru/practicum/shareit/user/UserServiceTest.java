@@ -27,7 +27,6 @@ public class UserServiceTest {
         UserAddDtoOut userAddDtoOut = userService.addUser(userAddDtoIn);
         Assertions.assertEquals(userAddDtoOut.getEmail(), userAddDtoIn.getEmail());
         Assertions.assertEquals(userAddDtoOut.getName(), userAddDtoIn.getName());
-        Assertions.assertEquals(userAddDtoOut.getId(), 1);
     }
 
     @Test

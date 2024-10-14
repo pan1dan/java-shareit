@@ -41,7 +41,7 @@ public class UserControllerTest {
                                                                                          userAddDtoIn.getName(),
                                                                                          userAddDtoIn.getEmail()));
 
-        mvc.perform(post("/requests")
+        mvc.perform(post("/users")
                         .content(mapper.writeValueAsString(userAddDtoIn))
                         .characterEncoding(StandardCharsets.UTF_8)
                         .contentType(MediaType.APPLICATION_JSON)
