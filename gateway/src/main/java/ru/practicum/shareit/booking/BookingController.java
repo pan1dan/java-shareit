@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import ru.practicum.shareit.booking.dto.InEntity.BookingAddDtoIn;
-import ru.practicum.shareit.booking.dto.InEntity.BookingParams;
+import ru.practicum.shareit.booking.dto.in_entity.BookingAddDtoIn;
+import ru.practicum.shareit.booking.dto.in_entity.BookingParams;
 
 import static ru.practicum.shareit.Utility.X_SHARER_USER_ID;
 
@@ -25,7 +25,7 @@ public class BookingController {
 
 	@PostMapping
 	public ResponseEntity<Object> addBooking(@RequestHeader(X_SHARER_USER_ID) @Min(0) Long userId,
-									   		 @Valid @RequestBody BookingAddDtoIn bookingAddDtoIn) {
+											 @Valid @RequestBody BookingAddDtoIn bookingAddDtoIn) {
 		log.info("POST /bookings: {}, {}", userId, bookingAddDtoIn);
 		ResponseEntity<Object> booking = bookingClient.addBooking(userId, bookingAddDtoIn);
 		log.info("POST /bookings возвращает значение: {}", booking);
@@ -51,7 +51,7 @@ public class BookingController {
 
 	@GetMapping("/{bookingId}")
 	public ResponseEntity<Object> getBookingById(@RequestHeader(X_SHARER_USER_ID) @Min(0) Long userId,
-										   @PathVariable(name = "bookingId") @Min(0) Long bookingId) {
+												 @PathVariable(name = "bookingId") @Min(0) Long bookingId) {
 		log.info("GET /bookings/{}: {}", bookingId, userId);
 		ResponseEntity<Object> booking = bookingClient.getBookingById(userId, bookingId);
 		log.info("GET /bookings/{} возвращает значение: {}", bookingId, booking);

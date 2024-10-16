@@ -1,8 +1,8 @@
 package ru.practicum.shareit.request.interfaces;
 
-import ru.practicum.shareit.request.dto.inEntity.ItemRequestAddDtoIn;
-import ru.practicum.shareit.request.dto.outEntity.ItemRequestAddDtoOut;
-import ru.practicum.shareit.request.dto.outEntity.ItemRequestGetDtoOut;
+import ru.practicum.shareit.request.dto.in_entity.ItemRequestAddDtoIn;
+import ru.practicum.shareit.request.dto.out_entity.ItemRequestAddDtoOut;
+import ru.practicum.shareit.request.dto.out_entity.ItemRequestGetDtoOut;
 
 import java.util.List;
 

@@ -1,9 +1,9 @@
 package ru.practicum.shareit.booking.interfaces;
 
-import ru.practicum.shareit.booking.dto.inEntity.BookingAddDtoIn;
-import ru.practicum.shareit.booking.dto.outEntity.BookingAddDtoOut;
-import ru.practicum.shareit.booking.dto.outEntity.BookingApproveDtoOut;
-import ru.practicum.shareit.booking.dto.outEntity.BookingGetDtoOut;
+import ru.practicum.shareit.booking.dto.in_entity.BookingAddDtoIn;
+import ru.practicum.shareit.booking.dto.out_entity.BookingAddDtoOut;
+import ru.practicum.shareit.booking.dto.out_entity.BookingApproveDtoOut;
+import ru.practicum.shareit.booking.dto.out_entity.BookingGetDtoOut;
 
 import java.util.List;
 

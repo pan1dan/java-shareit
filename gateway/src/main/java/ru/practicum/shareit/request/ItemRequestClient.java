@@ -8,7 +8,7 @@ import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.DefaultUriBuilderFactory;
 import ru.practicum.shareit.base.client.BaseClient;
-import ru.practicum.shareit.request.InEntity.ItemRequestAddDtoIn;
+import ru.practicum.shareit.request.in_entity.ItemRequestAddDtoIn;
 
 @Service
 public class ItemRequestClient extends BaseClient {

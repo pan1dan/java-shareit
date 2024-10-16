@@ -10,10 +10,10 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import ru.practicum.shareit.booking.dto.inEntity.BookingAddDtoIn;
-import ru.practicum.shareit.booking.dto.outEntity.BookingAddDtoOut;
-import ru.practicum.shareit.booking.dto.outEntity.BookingApproveDtoOut;
-import ru.practicum.shareit.booking.dto.outEntity.BookingGetDtoOut;
+import ru.practicum.shareit.booking.dto.in_entity.BookingAddDtoIn;
+import ru.practicum.shareit.booking.dto.out_entity.BookingAddDtoOut;
+import ru.practicum.shareit.booking.dto.out_entity.BookingApproveDtoOut;
+import ru.practicum.shareit.booking.dto.out_entity.BookingGetDtoOut;
 import ru.practicum.shareit.booking.interfaces.BookingService;
 import ru.practicum.shareit.booking.model.BookingState;
 

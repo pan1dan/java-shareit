@@ -4,10 +4,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import ru.practicum.shareit.booking.dto.inEntity.BookingAddDtoIn;
-import ru.practicum.shareit.booking.dto.outEntity.BookingAddDtoOut;
-import ru.practicum.shareit.booking.dto.outEntity.BookingApproveDtoOut;
-import ru.practicum.shareit.booking.dto.outEntity.BookingGetDtoOut;
+import ru.practicum.shareit.booking.dto.in_entity.BookingAddDtoIn;
+import ru.practicum.shareit.booking.dto.out_entity.BookingAddDtoOut;
+import ru.practicum.shareit.booking.dto.out_entity.BookingApproveDtoOut;
+import ru.practicum.shareit.booking.dto.out_entity.BookingGetDtoOut;
 import ru.practicum.shareit.booking.interfaces.BookingService;
 
 import java.util.List;

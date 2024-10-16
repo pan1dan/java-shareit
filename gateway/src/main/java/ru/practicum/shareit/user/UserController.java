@@ -7,8 +7,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import ru.practicum.shareit.user.dto.InEntity.UserAddDtoIn;
-import ru.practicum.shareit.user.dto.InEntity.UserUpdateDtoIn;
+import ru.practicum.shareit.user.dto.in_entity.UserAddDtoIn;
+import ru.practicum.shareit.user.dto.in_entity.UserUpdateDtoIn;
 
 @RestController
 @RequestMapping(path = "/users")
@@ -60,10 +60,4 @@ public class UserController {
         log.info("DELETE /users/{} возвращает значение: {}", id, answer);
         return answer;
     }
-
-
-
-
-
-
 }

@@ -7,11 +7,11 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import ru.practicum.shareit.user.dto.inEntity.UserAddDtoIn;
-import ru.practicum.shareit.user.dto.inEntity.UserUpdateDtoIn;
-import ru.practicum.shareit.user.dto.outEntity.UserAddDtoOut;
-import ru.practicum.shareit.user.dto.outEntity.UserGetDtoOut;
-import ru.practicum.shareit.user.dto.outEntity.UserUpdateDtoOut;
+import ru.practicum.shareit.user.dto.in_entity.UserAddDtoIn;
+import ru.practicum.shareit.user.dto.in_entity.UserUpdateDtoIn;
+import ru.practicum.shareit.user.dto.out_entity.UserAddDtoOut;
+import ru.practicum.shareit.user.dto.out_entity.UserGetDtoOut;
+import ru.practicum.shareit.user.dto.out_entity.UserUpdateDtoOut;
 import ru.practicum.shareit.user.interfaces.UserService;
 
 import java.nio.charset.StandardCharsets;

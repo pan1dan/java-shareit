@@ -7,10 +7,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import ru.practicum.shareit.item.InEntity.CommentAddDtoIn;
-import ru.practicum.shareit.item.InEntity.CommentParams;
-import ru.practicum.shareit.item.InEntity.ItemAddDtoIn;
-import ru.practicum.shareit.item.InEntity.ItemUpdateDtoIn;
+import ru.practicum.shareit.item.in_entity.CommentAddDtoIn;
+import ru.practicum.shareit.item.in_entity.CommentParams;
+import ru.practicum.shareit.item.in_entity.ItemAddDtoIn;
+import ru.practicum.shareit.item.in_entity.ItemUpdateDtoIn;
 
 import static ru.practicum.shareit.Utility.X_SHARER_USER_ID;
 

@@ -1,11 +1,11 @@
 package ru.practicum.shareit.request.mapper;
 
-import ru.practicum.shareit.item.dto.outEntity.ItemForItemRequestGetDtoOut;
+import ru.practicum.shareit.item.dto.out_entity.ItemForItemRequestGetDtoOut;
 import ru.practicum.shareit.item.mapper.ItemMapper;
 import ru.practicum.shareit.item.model.Item;
-import ru.practicum.shareit.request.dto.inEntity.ItemRequestAddDtoIn;
-import ru.practicum.shareit.request.dto.outEntity.ItemRequestAddDtoOut;
-import ru.practicum.shareit.request.dto.outEntity.ItemRequestGetDtoOut;
+import ru.practicum.shareit.request.dto.in_entity.ItemRequestAddDtoIn;
+import ru.practicum.shareit.request.dto.out_entity.ItemRequestAddDtoOut;
+import ru.practicum.shareit.request.dto.out_entity.ItemRequestGetDtoOut;
 import ru.practicum.shareit.request.model.ItemRequest;
 import ru.practicum.shareit.user.mapper.UserMapper;
 import ru.practicum.shareit.user.model.User;

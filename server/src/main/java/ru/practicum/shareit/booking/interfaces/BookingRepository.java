@@ -8,8 +8,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface BookingRepository extends JpaRepository<Booking, Long> {
-    List<Booking> findAllByBookerIdAndStartBeforeAndEndAfterOrderByStartDesc(
-                                                                             long userId,
+    List<Booking> findAllByBookerIdAndStartBeforeAndEndAfterOrderByStartDesc(long userId,
                                                                              LocalDateTime start,
                                                                              LocalDateTime end);
 
@@ -36,6 +35,6 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
     List<Booking> findAllByItemIdAndBookingStatus(Long itemId, BookingStatus bookingStatus);
 
     List<Booking> findAllByBookerIdAndItemIdAndEndBefore(Long bookerId,
-                                                                         Long itemId,
-                                                                         LocalDateTime localDateTime);
+                                                         Long itemId,
+                                                         LocalDateTime localDateTime);
 }

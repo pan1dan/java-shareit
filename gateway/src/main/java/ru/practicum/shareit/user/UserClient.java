@@ -8,8 +8,8 @@ import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.DefaultUriBuilderFactory;
 import ru.practicum.shareit.base.client.BaseClient;
-import ru.practicum.shareit.user.dto.InEntity.UserAddDtoIn;
-import ru.practicum.shareit.user.dto.InEntity.UserUpdateDtoIn;
+import ru.practicum.shareit.user.dto.in_entity.UserAddDtoIn;
+import ru.practicum.shareit.user.dto.in_entity.UserUpdateDtoIn;
 
 @Service
 public class UserClient extends BaseClient {

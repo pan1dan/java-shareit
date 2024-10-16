@@ -11,8 +11,8 @@ import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.DefaultUriBuilderFactory;
 
-import ru.practicum.shareit.booking.dto.InEntity.BookingAddDtoIn;
-import ru.practicum.shareit.booking.dto.InEntity.BookingParams;
+import ru.practicum.shareit.booking.dto.in_entity.BookingAddDtoIn;
+import ru.practicum.shareit.booking.dto.in_entity.BookingParams;
 import ru.practicum.shareit.base.client.BaseClient;
 
 @Service

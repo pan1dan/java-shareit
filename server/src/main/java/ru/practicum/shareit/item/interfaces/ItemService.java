@@ -1,9 +1,9 @@
 package ru.practicum.shareit.item.interfaces;
 
-import ru.practicum.shareit.item.dto.inEntity.CommentAddDtoIn;
-import ru.practicum.shareit.item.dto.inEntity.ItemAddDtoIn;
-import ru.practicum.shareit.item.dto.inEntity.ItemUpdateDtoIn;
-import ru.practicum.shareit.item.dto.outEntity.*;
+import ru.practicum.shareit.item.dto.in_entity.CommentAddDtoIn;
+import ru.practicum.shareit.item.dto.in_entity.ItemAddDtoIn;
+import ru.practicum.shareit.item.dto.in_entity.ItemUpdateDtoIn;
+import ru.practicum.shareit.item.dto.out_entity.*;
 
 import java.util.List;
 

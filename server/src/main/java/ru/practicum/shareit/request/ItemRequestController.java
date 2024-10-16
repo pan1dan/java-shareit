@@ -4,9 +4,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import ru.practicum.shareit.request.dto.inEntity.ItemRequestAddDtoIn;
-import ru.practicum.shareit.request.dto.outEntity.ItemRequestAddDtoOut;
-import ru.practicum.shareit.request.dto.outEntity.ItemRequestGetDtoOut;
+import ru.practicum.shareit.request.dto.in_entity.ItemRequestAddDtoIn;
+import ru.practicum.shareit.request.dto.out_entity.ItemRequestAddDtoOut;
+import ru.practicum.shareit.request.dto.out_entity.ItemRequestGetDtoOut;
 import ru.practicum.shareit.request.interfaces.ItemRequestService;
 
 import java.util.List;

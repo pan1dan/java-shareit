@@ -2,8 +2,8 @@ package ru.practicum.shareit.item.mapper;
 
 import ru.practicum.shareit.booking.mapper.BookingMapper;
 import ru.practicum.shareit.booking.model.Booking;
-import ru.practicum.shareit.item.dto.inEntity.ItemAddDtoIn;
-import ru.practicum.shareit.item.dto.outEntity.*;
+import ru.practicum.shareit.item.dto.in_entity.ItemAddDtoIn;
+import ru.practicum.shareit.item.dto.out_entity.*;
 import ru.practicum.shareit.item.model.Item;
 import ru.practicum.shareit.user.mapper.UserMapper;
 import ru.practicum.shareit.user.model.User;

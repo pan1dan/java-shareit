@@ -1,7 +1,7 @@
 package ru.practicum.shareit.item.mapper;
 
-import ru.practicum.shareit.item.dto.outEntity.CommentAddDtoOut;
-import ru.practicum.shareit.item.dto.outEntity.CommentGetDtoOut;
+import ru.practicum.shareit.item.dto.out_entity.CommentAddDtoOut;
+import ru.practicum.shareit.item.dto.out_entity.CommentGetDtoOut;
 import ru.practicum.shareit.item.model.Comment;
 import ru.practicum.shareit.item.model.Item;
 import ru.practicum.shareit.user.model.User;
