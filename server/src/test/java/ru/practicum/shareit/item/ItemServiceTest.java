@@ -9,6 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.shareit.booking.dto.in_entity.BookingAddDtoIn;
 import ru.practicum.shareit.booking.dto.out_entity.BookingAddDtoOut;
 import ru.practicum.shareit.booking.interfaces.BookingService;
+import ru.practicum.shareit.exception.BadRequestException;
+import ru.practicum.shareit.exception.ForbiddenException;
+import ru.practicum.shareit.exception.NotFoundException;
 import ru.practicum.shareit.item.dto.ItemDto;
 import ru.practicum.shareit.item.dto.in_entity.CommentAddDtoIn;
 import ru.practicum.shareit.item.dto.in_entity.ItemAddDtoIn;
@@ -20,6 +23,7 @@ import ru.practicum.shareit.item.dto.out_entity.ItemUpdateDtoOut;
 import ru.practicum.shareit.item.interfaces.ItemService;
 import ru.practicum.shareit.request.dto.in_entity.ItemRequestAddDtoIn;
 import ru.practicum.shareit.request.dto.out_entity.ItemRequestAddDtoOut;
+import ru.practicum.shareit.request.interfaces.ItemRequestRepository;
 import ru.practicum.shareit.request.interfaces.ItemRequestService;
 import ru.practicum.shareit.user.dto.in_entity.UserAddDtoIn;
 import ru.practicum.shareit.user.dto.out_entity.UserAddDtoOut;
@@ -29,6 +33,7 @@ import ru.practicum.shareit.user.mapper.UserMapper;
 import ru.practicum.shareit.user.model.User;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Transactional
@@ -38,8 +43,9 @@ import java.util.List;
 public class ItemServiceTest {
     private final ItemService itemService;
     private final UserService userService;
-    private final ItemRequestService requestService;
+    private final ItemRequestService itemRequestService;
     private final BookingService bookingService;
+    private final ItemRequestRepository itemRequestRepository;
 
     private final LocalDateTime start = LocalDateTime.now().plusDays(1);
     private final LocalDateTime end = LocalDateTime.now().plusDays(2);
@@ -49,9 +55,9 @@ public class ItemServiceTest {
     void addItemTest() {
         UserAddDtoOut user = userService.addUser(new UserAddDtoIn("user", "user@mail.ru"));
 
-        UserAddDtoOut requestor = userService.addUser(new UserAddDtoIn("requestor", "requestor@mail.com"));
+        UserAddDtoOut requester = userService.addUser(new UserAddDtoIn("requestor", "requestor@mail.com"));
 
-        ItemRequestAddDtoOut request = requestService.addItemRequest(requestor.getId(), new ItemRequestAddDtoIn("description"));
+        ItemRequestAddDtoOut request = itemRequestService.addItemRequest(requester.getId(), new ItemRequestAddDtoIn("description"));
 
         ItemAddDtoOut item = itemService.addItem(user.getId(), new ItemAddDtoIn("item", "description", true, request.getId()));
         ItemAddDtoOut itemMust = new ItemAddDtoOut(
@@ -61,6 +67,20 @@ public class ItemServiceTest {
         Assertions.assertEquals(item.getDescription(), itemMust.getDescription());
         Assertions.assertEquals(item.getOwner().getName(), itemMust.getOwner().getName());
         Assertions.assertEquals(item.getOwner().getEmail(), itemMust.getOwner().getEmail());
+    }
+
+    @Test
+    void addItemWhenRequestNotFoundTest() {
+        UserAddDtoOut user = userService.addUser(new UserAddDtoIn("user", "user@mail.ru"));
+        UserAddDtoOut requester = userService.addUser(new UserAddDtoIn("requestor", "requestor@mail.com"));
+        ItemRequestAddDtoOut request = itemRequestService.addItemRequest(requester.getId(), new ItemRequestAddDtoIn("description"));
+        itemRequestRepository.deleteAll();
+        Assertions.assertThrows(NotFoundException.class, () ->
+                itemService.addItem(user.getId(),
+                                    new ItemAddDtoIn("item",
+                                                     "description",
+                                                     true,
+                                                     request.getId())));
     }
 
     @Test
@@ -84,6 +104,56 @@ public class ItemServiceTest {
         Assertions.assertEquals(updateItem.getDescription(), "updateDescription");
         Assertions.assertTrue(updateItem.isAvailable());
         Assertions.assertNull(updateItem.getRequest());
+    }
+
+    @Test
+    void notOwnerUpdateItemTest() {
+        UserAddDtoOut user1 = userService.addUser(new UserAddDtoIn("user1", "user1@mail.ru"));
+        UserAddDtoOut user2 = userService.addUser(new UserAddDtoIn("user2", "user2@mail.ru"));
+
+        Long itemId = itemService.addItem(user1.getId(),
+                new ItemAddDtoIn("item",
+                        "description",
+                        true,
+                        null)).getId();
+
+        Assertions.assertThrows(ForbiddenException.class, () -> itemService.updateItem(user2.getId(),
+                                                                                       new ItemUpdateDtoIn(itemId,
+                                                                                       "updateItem",
+                                                                                       "updateDescription",
+                                                                                       true,
+                                                                                       null)));
+    }
+
+    @Test
+    void updateItemWithoutItemTest() {
+        UserAddDtoOut user = userService.addUser(new UserAddDtoIn("user", "user@mail.ru"));
+        Assertions.assertThrows(NotFoundException.class, () -> itemService.updateItem(user.getId(),
+                                                                                      new ItemUpdateDtoIn(1L,
+                                                                                      "updateItem",
+                                                                                      "updateDescription",
+                                                                                      true,
+                                                                                      null)));
+    }
+
+    @Test
+    void updateItemWhenItemRequestNotInBaseTest() {
+        UserAddDtoOut user = userService.addUser(new UserAddDtoIn("user", "user@mail.ru"));
+        ItemRequestAddDtoIn itemRequestAddDtoIn = new ItemRequestAddDtoIn("itemRequest");
+        ItemRequestAddDtoOut itemRequest = itemRequestService.addItemRequest(user.getId(), itemRequestAddDtoIn);
+        Long itemId = itemService.addItem(user.getId(),
+                new ItemAddDtoIn("item",
+                        "description",
+                        true,
+                        itemRequest.getId())).getId();
+        itemRequestRepository.deleteAll();
+
+        Assertions.assertThrows(NotFoundException.class, () -> itemService.updateItem(user.getId(),
+                                                                                      new ItemUpdateDtoIn(itemId,
+                                                                                      "updateItem",
+                                                                                      "updateDescription",
+                                                                                      true,
+                                                                                      1L)));
     }
 
     @Test
@@ -150,6 +220,12 @@ public class ItemServiceTest {
     }
 
     @Test
+    void searchItemsWithEmptyTextTest() {
+        List<ItemGetDtoOut> itemGetDtoOutList = itemService.searchItem("");
+        Assertions.assertEquals(new ArrayList<>(), itemGetDtoOutList);
+    }
+
+    @Test
     void addCommentTest() {
         UserAddDtoOut owner = userService.addUser(new UserAddDtoIn("owner", "user@mail.ru"));
         ItemAddDtoOut item1 = itemService.addItem(owner.getId(), new ItemAddDtoIn("item1", "description1", true, null));
@@ -160,4 +236,17 @@ public class ItemServiceTest {
         ItemGetDtoOut itemAfterComment = itemService.getItem(owner.getId(), item1.getId());
         Assertions.assertEquals(itemAfterComment.getComments().getFirst().getText(), "cool");
    }
+
+    @Test
+    void addCommentWithoutBookingTest() {
+        UserAddDtoOut owner = userService.addUser(new UserAddDtoIn("owner", "user@mail.ru"));
+        ItemAddDtoOut item1 = itemService.addItem(owner.getId(), new ItemAddDtoIn("item1", "description1", true, null));
+        UserAddDtoOut booker = userService.addUser(new UserAddDtoIn("booker", "booker@mail.ru"));
+        BookingAddDtoOut booking = bookingService.addBooking(booker.getId(), new BookingAddDtoIn(item1.getId(), start.plusDays(3), end.plusDays(4)));
+        bookingService.approveBooking(owner.getId(), booking.getId(), true);
+        Assertions.assertThrows(BadRequestException.class, () ->
+                                                              itemService.addComment(booker.getId(),
+                                                                                     item1.getId(),
+                                                                                     new CommentAddDtoIn("cool")));
+    }
 }

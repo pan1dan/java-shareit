@@ -17,6 +17,8 @@ import ru.practicum.shareit.booking.interfaces.BookingService;
 import ru.practicum.shareit.booking.model.Booking;
 import ru.practicum.shareit.booking.model.BookingState;
 import ru.practicum.shareit.booking.model.BookingStatus;
+import ru.practicum.shareit.exception.BadRequestException;
+import ru.practicum.shareit.exception.NotFoundException;
 import ru.practicum.shareit.item.interfaces.ItemRepository;
 import ru.practicum.shareit.item.model.Item;
 import ru.practicum.shareit.request.interfaces.ItemRequestRepository;
@@ -76,6 +78,22 @@ public class BookingServiceTest {
         Assertions.assertEquals(bookingAddDtoOut.getEnd(), booking.getEnd());
         Assertions.assertEquals(bookingAddDtoOut.getItem().getId(), booking.getItem().getId());
         Assertions.assertEquals(bookingAddDtoOut.getBooker().getId(), booking.getBooker().getId());
+    }
+
+    @Test
+    public void testAddBookingWithoutAvailable() {
+        BookingAddDtoIn bookingAddDtoIn = new BookingAddDtoIn(item.getId(),start, end);
+        item.setAvailable(false);
+        Assertions.assertThrows(BadRequestException.class, () ->
+                bookingService.addBooking(owner.getId(), bookingAddDtoIn));
+    }
+
+    @Test
+    public void testAddBookingWithoutItem() {
+        itemRepository.deleteAll();
+        BookingAddDtoIn bookingAddDtoIn = new BookingAddDtoIn(item.getId(),start, end);
+        Assertions.assertThrows(NotFoundException.class, () ->
+                bookingService.addBooking(owner.getId(), bookingAddDtoIn));
     }
 
     @Test
