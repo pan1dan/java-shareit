@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.shareit.booking.dto.in_entity.BookingAddDtoIn;
 import ru.practicum.shareit.booking.dto.out_entity.BookingAddDtoOut;
 import ru.practicum.shareit.booking.interfaces.BookingService;
+import ru.practicum.shareit.item.dto.ItemDto;
 import ru.practicum.shareit.item.dto.in_entity.CommentAddDtoIn;
 import ru.practicum.shareit.item.dto.in_entity.ItemAddDtoIn;
 import ru.practicum.shareit.item.dto.in_entity.ItemUpdateDtoIn;
@@ -42,6 +43,7 @@ public class ItemServiceTest {
 
     private final LocalDateTime start = LocalDateTime.now().plusDays(1);
     private final LocalDateTime end = LocalDateTime.now().plusDays(2);
+    ItemDto itemDto = new ItemDto();
 
     @Test
     void addItemTest() {

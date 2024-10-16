@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import ru.practicum.shareit.user.dto.UserDto;
 import ru.practicum.shareit.user.dto.in_entity.UserAddDtoIn;
 import ru.practicum.shareit.user.dto.in_entity.UserUpdateDtoIn;
 import ru.practicum.shareit.user.dto.out_entity.UserAddDtoOut;
@@ -20,6 +21,7 @@ import java.util.List;
 @RequiredArgsConstructor(onConstructor_ = {@Autowired})
 public class UserServiceTest {
     private final UserService userService;
+    UserDto userDto = new UserDto();
 
     @Test
     void addUserTest() {

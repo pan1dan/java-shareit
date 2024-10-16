@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import ru.practicum.shareit.request.dto.ItemRequestDto;
 import ru.practicum.shareit.request.dto.in_entity.ItemRequestAddDtoIn;
 import ru.practicum.shareit.request.dto.out_entity.ItemRequestAddDtoOut;
 import ru.practicum.shareit.request.dto.out_entity.ItemRequestGetDtoOut;
@@ -28,6 +29,7 @@ public class ItemRequestServiceTest {
     private final UserService userService;
     private UserAddDtoIn userAddDtoIn;
     private final EntityManager em;
+    ItemRequestDto itemRequestDto = new ItemRequestDto();
 
     @BeforeEach
     public void initialization() {
